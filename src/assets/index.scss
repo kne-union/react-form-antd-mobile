@@ -1,0 +1,14 @@
+.react-form {
+  &__popup {
+    width: 100%;
+  }
+
+  &__placeholder {
+    color: #cccccc;
+  }
+
+  &__field-error {
+    font-size: 12px;
+    color: #fc3333;
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "@kne/react-form-antd-mobile",
+  "version": "2.0.0",
+  "description": "把@kne/react-form 表单校验逻辑应用到antd",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
+  "source": "src/index.js",
+  "scripts": {
+    "init": "npm install && cd example && npm install",
+    "create-fields": "node ./scripts/createIndex.js",
+    "start": "run-p start:lib start:example",
+    "build": "run-s create-fields build:lib build:example",
+    "build:lib": "microbundle --no-compress --format modern,cjs --jsx React.createElement --jsxFragment React.Fragment",
+    "start:lib": "microbundle watch --no-compress --format modern,cjs --jsx React.createElement --jsxFragment React.Fragment",
+    "test": "run-s test:unit test:lint test:build",
+    "test:build": "run-s build",
+    "test:lint": "eslint .",
+    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom",
+    "build:example": "cd example && npm run build",
+    "start:example": "cd example && npm run start",
+    "deploy": "gh-pages -d example/build",
+    "prettier": "prettier --config .prettierrc --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kne-union/react-form-antd-mobile.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "form",
+    "validate"
+  ],
+  "author": "linzp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kne-union/react-form-antd-mobile/issues"
+  },
+  "homepage": "https://github.com/kne-union/react-form-antd-mobile#readme",
+  "peerDependencies": {
+    "@kne/react-fetch": "0.1.x",
+    "antd-mobile": ">=5.x",
+    "prop-types": ">=15.x",
+    "react": ">=16.x"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.3",
+    "@kne/react-form": "^2.0.6",
+    "@kne/react-form-helper": "^1.0.12",
+    "@kne/use-control-value": "^0.1.1",
+    "@kne/use-event": "^0.1.2",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.15",
+    "react-avatar-editor": "^12.0.0"
+  },
+  "devDependencies": {
+    "@kne/react-fetch": "^1.0.0",
+    "antd-mobile": "^5.8.1",
+    "axios": "^0.21.4",
+    "cross-env": "^7.0.3",
+    "fs-extra": "^9.0.1",
+    "gh-pages": "^3.2.3",
+    "glob": "^7.1.6",
+    "husky": "^7.0.2",
+    "microbundle": "^0.13.3",
+    "node-sass": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "pify": "^5.0.0",
+    "prettier": "^2.4.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3"
+  }
+}
