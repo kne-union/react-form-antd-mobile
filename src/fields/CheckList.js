@@ -1,12 +1,39 @@
 import React, {useMemo, useState} from "react";
-import {List, CheckList, Popup, NavBar, Button} from "antd-mobile";
-import {hooks} from "@kne/react-form-helper";
-import classnames from 'classnames';
+import {CheckList, Popup, NavBar, Button} from "antd-mobile";
+import withDecoratorList from '../common/withDecoratorList';
 
-const {useDecorator} = hooks;
-
-const CheckListInput = ({render, visible, children, setVisible, options, placeholder, onChange, value, ...props}) => {
+const CheckListPopup = ({
+                            value,
+                            visible,
+                            onConfirm,
+                            onClose,
+                            afterClose,
+                            placeholder,
+                            onChange,
+                            options,
+                            children,
+                            ...props
+                        }) => {
     const [pickerValue, setPickerValue] = useState(value);
+    return <Popup bodyClassName="react-form__popup" visible={visible} onConfirm={onConfirm} onClose={onClose}
+                  afterClose={afterClose} position="right">
+        <NavBar backArrow={<Button color='primary' fill='none'>返回</Button>}
+                right={<Button color='primary' fill='none' onClick={() => {
+                    onChange(pickerValue);
+                    onClose();
+                }}>确定</Button>} onBack={() => {
+            onClose();
+        }}>{placeholder}</NavBar>
+        <CheckList {...props} options={options} onChange={(value) => {
+            setPickerValue(value);
+        }} value={pickerValue}>
+            {children || options.map(({label, value, ...others}) => <CheckList.Item {...others} value={value}
+                                                                                    key={value}>{label}</CheckList.Item>)}
+        </CheckList>
+    </Popup>;
+};
+
+const CheckListInput = ({render, options, placeholder, value, showPopup}) => {
     const label = useMemo(() => {
         if (!value) {
             return '';
@@ -23,54 +50,10 @@ const CheckListInput = ({render, visible, children, setVisible, options, placeho
         label,
         value,
         placeholder,
-        onClick: () => {
-            setVisible(true);
-        },
-        children: <Popup bodyClassName="react-form__popup" visible={visible} onClose={() => {
-            setVisible(false);
-        }} onMaskClick={() => {
-            setVisible(false);
-        }} position="right">
-            <NavBar backArrow={<Button color='primary' fill='none'>返回</Button>}
-                    right={<Button color='primary' fill='none' onClick={() => {
-                        onChange(pickerValue);
-                        setVisible(false);
-                    }}>确定</Button>} onBack={() => {
-                setVisible(false);
-            }}>{placeholder}</NavBar>
-            <CheckList {...props} options={options} onChange={(value) => {
-                setPickerValue(value);
-            }} value={pickerValue}>
-                {children || options.map(({label, value, ...others}) => <CheckList.Item {...others} value={value}
-                                                                                        key={value}>{label}</CheckList.Item>)}
-            </CheckList>
-        </Popup>
+        onClick: showPopup
     });
 };
 
-CheckListInput.defaultProps = {
-    render: ({label, placeholder, onClick, children}) => {
-        return <span className={classnames({
-            "react-form__placeholder": !label
-        })} onClick={onClick}>{label || placeholder}{children}</span>
-    }
-};
-
-const CheckListField = (props) => {
-    const [visible, setVisible] = useState(false);
-    const render = useDecorator(Object.assign({placeholder: `请选择${props.label}`, visible, setVisible}, props));
-    return render(CheckListInput);
-};
-
-CheckListField.defaultProps = {};
-
-CheckListField.Item = (props) => {
-    const [visible, setVisible] = useState(false);
-    return <List.Item title={props.label} onClick={() => {
-        setVisible(true);
-    }}>
-        <CheckListField {...props} labelHidden visible={visible} setVisible={setVisible}/>
-    </List.Item>
-};
+const CheckListField = withDecoratorList(CheckListInput)(CheckListPopup);
 
 export default CheckListField;
