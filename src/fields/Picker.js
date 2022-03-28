@@ -29,7 +29,7 @@ const PickerField = withDecoratorList(({render, placeholder, showPopup, value, c
         placeholder,
         onClick: showPopup
     });
-})(withOnConfirm(Picker));
+}, true)(withOnConfirm(Picker));
 
 PickerField.CascadePicker = withDecoratorList(({render, placeholder, showPopup, value, options}) => {
     const label = useMemo(() => {
@@ -55,7 +55,7 @@ PickerField.CascadePicker = withDecoratorList(({render, placeholder, showPopup, 
         placeholder,
         onClick: showPopup
     });
-})(withOnConfirm(CascadePicker));
+}, true)(withOnConfirm(CascadePicker));
 
 PickerField.DatePicker = withDecoratorList(({render, placeholder, showPopup, value, format}) => {
     const label = useMemo(() => {

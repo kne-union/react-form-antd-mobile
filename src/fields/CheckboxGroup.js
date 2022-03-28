@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import {List, Checkbox, Space} from 'antd-mobile';
 import {hooks} from '@kne/react-form-helper';
+import withFetchList from '../common/withFetchList';
 
 const {useOnChange} = hooks;
 
@@ -26,6 +27,14 @@ _CheckboxGroup.Checkbox = Checkbox;
 _CheckboxGroup.Item = (props) => {
     return <List.Item title={props.label}>
         <_CheckboxGroup {...props} labelHidden/>
+    </List.Item>
+};
+
+_CheckboxGroup.Fetch = withFetchList(CheckboxGroup);
+
+_CheckboxGroup.FetchItem = (props) => {
+    return <List.Item title={props.label}>
+        <_CheckboxGroup.Fetch {...props} labelHidden/>
     </List.Item>
 };
 

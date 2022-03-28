@@ -4,10 +4,11 @@ import {hooks} from "@kne/react-form-helper";
 import withLayer from './withLayer';
 import useEvent from "@kne/use-event";
 import classnames from "classnames";
+import withFetchList from './withFetchList';
 
-const {useDecorator} = hooks;
+const {useOnChange} = hooks;
 
-const withDecoratorList = (LabelComponent) => (WrappedComponent) => {
+const withDecoratorList = (LabelComponent, hasFetch) => (WrappedComponent) => {
     const createPopup = withLayer(WrappedComponent);
 
     const FieldComponent = ({emitter, ...props}) => {
@@ -37,7 +38,7 @@ const withDecoratorList = (LabelComponent) => (WrappedComponent) => {
     };
 
     const Field = (props) => {
-        const render = useDecorator(Object.assign({placeholder: `请选择${props.label}`}, props));
+        const render = useOnChange(Object.assign({placeholder: `请选择${props.label}`}, props));
         return render(FieldComponent);
     };
 
@@ -52,6 +53,20 @@ const withDecoratorList = (LabelComponent) => (WrappedComponent) => {
         </List.Item>
     };
 
+    if (hasFetch) {
+        const FetchField = withFetchList(FieldComponent);
+
+        Field.Fetch = FetchField;
+
+        Field.FetchItem = (props) => {
+            const emitter = useEvent();
+            return <List.Item title={props.label} onClick={() => {
+                emitter.emit('show');
+            }}>
+                <FetchField {...props} labelHidden emitter={emitter}/>
+            </List.Item>
+        };
+    }
     return Field;
 };
 

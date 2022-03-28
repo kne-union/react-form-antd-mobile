@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://../dist/index.scss"],"names":[],"mappings":"AAAA,mBACE,UAAa,CAEf,yBACE,UAAgB,CAElB,yBACE,cAAe,CACf,aAAgB","file":"main.e070ff43.chunk.css","sourcesContent":[".react-form__popup {\n  width: 100%; }\n\n.react-form__placeholder {\n  color: #cccccc; }\n\n.react-form__field-error {\n  font-size: 12px;\n  color: #fc3333; }\n"]}

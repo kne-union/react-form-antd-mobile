@@ -54,6 +54,6 @@ const CheckListInput = ({render, options, placeholder, value, showPopup}) => {
     });
 };
 
-const CheckListField = withDecoratorList(CheckListInput)(CheckListPopup);
+const CheckListField = withDecoratorList(CheckListInput, true)(CheckListPopup);
 
 export default CheckListField;
