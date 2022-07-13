@@ -1,6 +1,7 @@
 import React from 'react';
-import {Stepper, List} from 'antd-mobile';
+import {Stepper} from 'antd-mobile';
 import {hooks} from '@kne/react-form-helper';
+import withItem from "../common/withItem";
 
 const {useDecorator} = hooks;
 
@@ -9,10 +10,6 @@ const StepperField = (props) => {
     return render(Stepper);
 };
 
-StepperField.Item = (props) => {
-    return <List.Item title={props.label}>
-        <StepperField {...props} labelHidden/>
-    </List.Item>
-};
+StepperField.Item = withItem(StepperField);
 
 export default StepperField;

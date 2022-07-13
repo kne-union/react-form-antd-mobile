@@ -12,9 +12,9 @@ const withDecoratorList = (LabelComponent, hasFetch) => (WrappedComponent) => {
     const createPopup = withLayer(WrappedComponent);
 
     const FieldComponent = ({emitter, ...props}) => {
-        const showPopup = (e) => {
+        const showPopup = (e, otherProps) => {
             e && e.stopPropagation();
-            createPopup(props);
+            createPopup(Object.assign({}, props, otherProps));
         };
         const showPopupRef = useRef(showPopup);
         showPopupRef.current = showPopup;
@@ -46,7 +46,8 @@ const withDecoratorList = (LabelComponent, hasFetch) => (WrappedComponent) => {
 
     Field.Item = (props) => {
         const emitter = useEvent();
-        return <List.Item title={props.label} onClick={() => {
+        const listProps = props.labelHidden === true ? {} : {title: props.label};
+        return <List.Item {...listProps} onClick={() => {
             emitter.emit('show');
         }}>
             <Field {...props} labelHidden emitter={emitter}/>

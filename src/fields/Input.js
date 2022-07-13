@@ -1,6 +1,7 @@
 import React from 'react';
-import {Input, List} from 'antd-mobile';
+import {Input} from 'antd-mobile';
 import {hooks} from '@kne/react-form-helper';
+import withItem from "../common/withItem";
 
 const {useDecorator} = hooks;
 
@@ -9,10 +10,6 @@ const InputField = (props) => {
     return render(Input);
 };
 
-InputField.Item = (props) => {
-    return <List.Item title={props.label}>
-        <InputField {...props} labelHidden/>
-    </List.Item>
-};
+InputField.Item = withItem(InputField);
 
 export default InputField;

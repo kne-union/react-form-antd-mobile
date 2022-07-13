@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
-import {List, Radio, Space} from 'antd-mobile';
+import {Radio, Space} from 'antd-mobile';
 import {hooks} from '@kne/react-form-helper';
 import withFetchList from "../common/withFetchList";
+import withItem from "../common/withItem";
 
 const {useOnChange} = hooks;
 
@@ -24,18 +25,10 @@ const _RadioGroup = (props) => {
 
 _RadioGroup.Radio = Radio;
 
-_RadioGroup.Item = (props) => {
-    return <List.Item title={props.label}>
-        <_RadioGroup {...props} labelHidden/>
-    </List.Item>
-};
+_RadioGroup.Item = withItem(_RadioGroup);
 
 _RadioGroup.Fetch = withFetchList(RadioGroup);
 
-_RadioGroup.FetchItem = (props) => {
-    return <List.Item title={props.label}>
-        <_RadioGroup.Fetch {...props} labelHidden/>
-    </List.Item>
-};
+_RadioGroup.FetchItem = withItem(_RadioGroup.Fetch);
 
 export default _RadioGroup;

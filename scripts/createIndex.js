@@ -13,6 +13,7 @@ import ${name}$ from './fields/${name}';`).join('')}
 export * from './Form';
 export default Form;
 export {default as preset} from './preset';
+export {default as withDecoratorList} from './common/withDecoratorList';
 export {default as ResetButton} from './ResetButton';
 export {default as SubmitButton} from './SubmitButton';
 export {default as CancelButton} from './CancelButton';

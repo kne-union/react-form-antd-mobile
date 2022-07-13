@@ -1,6 +1,7 @@
-import {Checkbox as _Checkbox, List} from 'antd-mobile';
+import {Checkbox as _Checkbox} from 'antd-mobile';
 import {hooks, hoc} from '@kne/react-form-helper';
 import React from "react";
+import withItem from "../common/withItem";
 
 const {useOnChange, useCheckedToValue} = hooks;
 const {withChecked} = hoc;
@@ -13,10 +14,6 @@ const Checkbox = (props) => {
     return render(WithCheckbox);
 };
 
-Checkbox.Item = (props) => {
-    return <List.Item title={props.label}>
-        <Checkbox {...props} labelHidden/>
-    </List.Item>
-};
+Checkbox.Item = withItem(Checkbox);
 
 export default Checkbox;

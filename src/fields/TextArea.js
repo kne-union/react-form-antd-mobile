@@ -1,6 +1,7 @@
 import React from 'react';
-import {TextArea, List} from 'antd-mobile';
+import {TextArea} from 'antd-mobile';
 import {hooks} from '@kne/react-form-helper';
+import withItem from "../common/withItem";
 
 const {useDecorator} = hooks;
 
@@ -9,10 +10,6 @@ const TextAreaField = (props) => {
     return render(TextArea);
 };
 
-TextAreaField.Item = (props) => {
-    return <List.Item title={props.label}>
-        <TextAreaField {...props} labelHidden/>
-    </List.Item>
-};
+TextAreaField.Item = withItem(TextAreaField);
 
 export default TextAreaField;

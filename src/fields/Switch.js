@@ -1,6 +1,7 @@
 import React from 'react';
-import {List, Switch as _Switch} from 'antd-mobile';
+import {Switch as _Switch} from 'antd-mobile';
 import {hooks, hoc} from '@kne/react-form-helper';
+import withItem from "../common/withItem";
 
 const {useOnChange, useCheckedToValue} = hooks;
 const {withChecked} = hoc;
@@ -12,10 +13,6 @@ const Switch = (props) => {
     return render(WithSwitch);
 };
 
-Switch.Item = (props) => {
-    return <List.Item title={props.label}>
-        <Switch {...props} labelHidden/>
-    </List.Item>
-};
+Switch.Item = withItem(Switch);
 
 export default Switch;

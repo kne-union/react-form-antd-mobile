@@ -1,6 +1,7 @@
 import React from 'react';
-import {Rate, List} from 'antd-mobile';
+import {Rate} from 'antd-mobile';
 import {hooks} from '@kne/react-form-helper';
+import withItem from "../common/withItem";
 
 const {useOnChange} = hooks;
 
@@ -9,10 +10,6 @@ const RateField = (props) => {
     return render(Rate);
 };
 
-RateField.Item = (props) => {
-    return <List.Item title={props.label}>
-        <RateField {...props} labelHidden/>
-    </List.Item>
-};;
+RateField.Item = withItem(RateField);
 
 export default RateField;

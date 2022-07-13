@@ -3,7 +3,15 @@ import merge from 'lodash/merge';
 
 export const globalParams = {
     rules: {},
-    field: {}
+    field: {
+        imageUploader: {
+            upload: (file) => {
+                return {
+                    url: URL.createObjectURL(file),
+                }
+            }
+        }
+    }
 };
 
 const oldREQ = RULES.REQ;
