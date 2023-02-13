@@ -162,14 +162,14 @@ const App = () => {
                      console.log(data);
                  }}>
         <List header="基本信息">
-            <DateRangePicker.Item name="range" label="日期范围" precision="year"/>
+            <DateRangePicker.Item name="range" label="日期范围" precision="year" rule="REQ"/>
             <Input.Item name="name" label="姓名" rule="REQ LEN-10"/>
             <CheckList.FetchItem name="fetchList" label="远程列表" url="/react-form-antd-mobile/mock/list.json">
                 {({data}) => {
                     return {options: data};
                 }}
             </CheckList.FetchItem>
-            <Picker.FetchItem name="fetchPicker" label="远程选择" url="/react-form-antd-mobile/mock/list.json">
+            <Picker.FetchItem name="fetchPicker" label="远程选择" url="/react-form-antd-mobile/mock/list.json" rule="REQ">
                 {({data}) => {
                     return {columns: [data]};
                 }}

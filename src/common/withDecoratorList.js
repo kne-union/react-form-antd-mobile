@@ -47,7 +47,9 @@ const withDecoratorList = (LabelComponent, hasFetch) => (WrappedComponent) => {
     Field.Item = (props) => {
         const emitter = useEvent();
         const listProps = props.labelHidden === true ? {} : {title: props.label};
-        return <List.Item {...listProps} onClick={() => {
+        return <List.Item {...listProps} className={classnames(listProps.className, {
+            'is-req': typeof props.rule === 'string' && (props.rule || '').split(' ').indexOf('REQ') > -1
+        })} onClick={() => {
             emitter.emit('show');
         }}>
             <Field {...props} labelHidden emitter={emitter}/>
@@ -61,7 +63,9 @@ const withDecoratorList = (LabelComponent, hasFetch) => (WrappedComponent) => {
 
         Field.FetchItem = (props) => {
             const emitter = useEvent();
-            return <List.Item title={props.label} onClick={() => {
+            return <List.Item title={props.label} className={classnames(props.className, {
+                'is-req': typeof props.rule === 'string' && (props.rule || '').split(' ').indexOf('REQ') > -1
+            })} onClick={() => {
                 emitter.emit('show');
             }}>
                 <FetchField {...props} labelHidden emitter={emitter}/>

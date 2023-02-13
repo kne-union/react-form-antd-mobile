@@ -1,6 +1,6 @@
 {
   "name": "@kne/react-form-antd-mobile",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "把@kne/react-form 表单校验逻辑应用到antd-mobile",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
